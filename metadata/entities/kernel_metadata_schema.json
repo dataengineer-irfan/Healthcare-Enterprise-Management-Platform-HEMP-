@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "KernelEntityMetadataSchema",
+  "type": "object",
+  "properties": {
+    "entityId": { "type": "string" },
+    "entityName": { "type": "string" },
+    "displayName": { "type": "string" },
+    "domain": { "type": "string" },
+    "tableName": { "type": "string" },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "fieldName": { "type": "string" },
+          "displayLabel": { "type": "string" },
+          "dataType": { "type": "string" },
+          "isRequired": { "type": "boolean" },
+          "isSearchable": { "type": "boolean" },
+          "uiComponent": { "type": "string" }
+        },
+        "required": ["fieldName", "dataType"]
+      }
+    }
+  },
+  "required": ["entityId", "entityName", "domain", "tableName"]
+}

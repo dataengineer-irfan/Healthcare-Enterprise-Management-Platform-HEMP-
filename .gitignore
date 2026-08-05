@@ -1,0 +1,35 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment and Secrets
+.env
+.env.local
+*.env
+*.pem
+*.key
+
+# Dependencies
+node_modules/
+vendor/
+venv/
+.venv/
+__pycache__/
+
+# Build and Output Directories
+dist/
+build/
+out/
+.next/
+*.log
+
+# IDE & Editor Directories
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Antigravity artifacts (local logs & temp)
+.gemini/
+scratch/

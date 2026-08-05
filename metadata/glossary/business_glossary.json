@@ -1,0 +1,36 @@
+{
+  "glossaryVersion": "1.0",
+  "domain": "Enterprise Healthcare & Platform Kernel",
+  "terms": [
+    {
+      "term": "Provider",
+      "definition": "A practitioner (individual physician, nurse, practitioner) or facility (hospital, clinic, laboratory) rendering healthcare services to members.",
+      "synonyms": ["Doctor", "Physician", "Practitioner", "Facility", "Vendor"],
+      "domain": "Provider Domain"
+    },
+    {
+      "term": "Member",
+      "definition": "An eligible beneficiary covered under a healthcare insurance policy or Medicaid/Medicare program.",
+      "synonyms": ["Beneficiary", "Patient", "Enrollee", "Subscriber"],
+      "domain": "Member Domain"
+    },
+    {
+      "term": "Prior Authorization (PA)",
+      "definition": "A decision by a health plan or payer that a health service, treatment plan, prescription drug, or medical equipment is medically necessary.",
+      "synonyms": ["Service Auth", "Pre-authorization", "Utilization Review"],
+      "domain": "Service Authorization Domain"
+    },
+    {
+      "term": "Claim",
+      "definition": "A formal bill or request submitted by a provider to a payer requesting payment for healthcare services rendered to a member.",
+      "synonyms": ["Encounter", "Bill", "Invoice"],
+      "domain": "Claims Domain"
+    },
+    {
+      "term": "Third Party Liability (TPL)",
+      "definition": "The legal obligation of third parties (e.g., private health insurance, casualty insurance) to pay all or part of the expenditures for medical assistance provided under a Medicaid plan.",
+      "synonyms": ["Coordination of Benefits (COB)", "Other Insurance"],
+      "domain": "TPL Domain"
+    }
+  ]
+}
