@@ -2,10 +2,11 @@ package health.hemp.service;
 
 import health.hemp.domain.entity.ProviderEntity;
 import health.hemp.repository.ProviderRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,8 +20,15 @@ public class ProviderService {
         this.repository = repository;
     }
 
-    public List<ProviderEntity> findAll() {
-        return repository.findAll();
+    public Page<ProviderEntity> searchProviders(String npi, Pageable pageable) {
+        if (npi != null && !npi.isBlank()) {
+            return repository.findByNpiContaining(npi, pageable);
+        }
+        return repository.findAll(pageable);
+    }
+
+    public Optional<ProviderEntity> findById(UUID id) {
+        return repository.findById(id);
     }
 
     public Optional<ProviderEntity> findByNpi(String npi) {
