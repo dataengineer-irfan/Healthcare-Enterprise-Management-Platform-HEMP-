@@ -1,42 +1,24 @@
-# HEMP Platform Version & Roadmap
+# HEMP Platform Version & Governance
 
-## Current Version: `1.0.0-alpha`
-- **Architecture Level**: Metadata-Driven Enterprise AI Platform (EAP v3.0 / EHP-OS)
-- **Status**: Platform Kernel Foundation & Comprehensive Specifications Phase
-
----
-
-## 🗺️ Roadmap & Milestones
-
-### Milestone 1: Specifications & Architecture Bootstrap (Completed)
-- [x] Master Specifications `00` through `04` (Project Context, Architecture, Database, Security, AI).
-- [x] Extended Platform Specifications `05` through `15` (UI Design System, API Standards, Metadata Model, Workflow, Rules, Search, Documents, Notifications, Audit, Integration, Deployment).
-- [x] Platform Decision Records (`/decisions/`).
-- [x] AI Assistant Prompts (`/prompts/`) & End-to-End Reference Example (`/examples/`).
-
-### Milestone 2: Platform Kernel Implementation (In Progress)
-- [x] Domain-separated PostgreSQL DDLs (`01_kernel.sql` through `09_claims.sql`).
-- [ ] Metadata Engine Runtime (Entity, Form, Grid, Workflow, Rules execution).
-- [ ] Core REST/gRPC API Gateway & Security PDP/PEP middleware.
-
-### Milestone 3: Healthcare Business Modules (Upcoming)
-- [ ] Provider Management Module (Enrollment, Credentialing, Revalidation).
-- [ ] Member Management Module (Eligibility, Enrollment, Benefits).
-- [ ] Claims Management Module (Submission, Pre-adjudication, Pricing).
-- [ ] Service Authorization & TPL Modules.
-
-### Milestone 4: Multi-Brain AI Platform
-- [ ] Text-to-SQL & RAG Engine via `ai.semantic_catalog`.
-- [ ] Multi-Agent Assistant Orchestration (Business, Workflow, Analytics, Developer).
+## Current Version: `1.0.0 (LOCKED BASELINE)`
+- **Effective Date**: 2026-08-05
+- **Status**: Architecture Baseline Locked via [specifications/00_ARCHITECTURE_BASELINE_LOCK_v1.0.md](file:///c:/Users/affra/Documents/ETS/Enterprise%20Healthcare%20Management%20Platform/specifications/00_ARCHITECTURE_BASELINE_LOCK_v1.0.md) and [ADR-0001](file:///c:/Users/affra/Documents/ETS/Enterprise%20Healthcare%20Management%20Platform/adr/ADR-0001-Architecture-Baseline-Lock-v1.0.md).
+- **Governance Mode**: Strict ADR-Driven Architecture Change Management.
 
 ---
 
-## 🏛️ Architecture Decisions Log
-- `Decision-0001`: PostgreSQL 15+ as Transactional and Metadata Core.
-- `Decision-0002`: Metadata-Driven Entity, UI, and Workflow Engine Architecture.
-- `Decision-0003`: Security Guardrails & RBAC Propagation for AI Assistants.
+## 🔒 Architecture Lock Rules
+1. High-level architecture phase is CLOSED.
+2. Ad hoc modifications to kernel layer boundaries, data models, or core principles are PROHIBITED.
+3. All future architecture evolution requires a formal ADR (`/adr/` or `/decisions/`) and impact analysis.
+4. All future module work transitions directly to **implementation-ready specifications and complete code deliverables**.
 
 ---
 
-## 🔄 Breaking Changes
-- None (Initial Platform Specification & Core Setup).
+## 🗺️ Implementation Deliverables Queue
+1. Platform Kernel PostgreSQL Complete DDL (`database/ddl/01_kernel.sql`).
+2. Metadata Schema (`metadata/entities/`, `metadata/attributes/`, `metadata/workflows/`, `metadata/forms/`).
+3. Identity & Access Management (IAM) Implementation Specification.
+4. Provider Management Implementation Specification.
+5. Member Management Implementation Specification.
+6. Claims Management Implementation Specification.
