@@ -13,8 +13,8 @@ Run the entire platform (PostgreSQL database, Spring Boot backend, and React 19 
 docker-compose -f docker/docker-compose.yml up --build
 ```
 
-- **Frontend Portal**: `http://localhost:3000`
-- **Backend REST API**: `http://localhost:8080`
+- **Frontend Portal**: `http://localhost:3009`
+- **Backend REST API**: `http://localhost:8090`
 - **PostgreSQL Database**: `localhost:5432` (`hemp_db`)
 
 ---
@@ -43,7 +43,7 @@ npm run dev
 
 ## 🔐 Demo Credentials & RBAC Roles
 
-Log in at `http://localhost:3000/login` using the demo preset buttons or credentials:
+Log in at `http://localhost:3009/login` using the demo preset buttons or credentials:
 
 | Username | Password | Role | Allowed Modules |
 |----------|----------|------|-----------------|
@@ -61,5 +61,6 @@ Every interactive component contains stable `data-testid` selectors:
 - **Dashboard**: `dashboard-card-providers`, `dashboard-card-members`, `claims-dashboard`
 - **Provider Module**: `provider-grid`, `provider-search-button`, `provider-enrollment-button`, `provider-save-button`
 - **Member Module**: `member-grid`, `member-search-button`, `member-enrollment-button`, `member-save-button`
+- **Claims Module**: `claim-grid`, `claim-search-button`, `claim-submit-button`, `claim-save-button`, `claim-approve-button-{id}`
 - **AI Studio**: `ai-studio-chat`, `ai-prompt-input`, `ai-send-button`
 - **Navigation & Logout**: `nav-dashboard`, `nav-provider-management`, `nav-member-management`, `user-menu-button`, `logout-button`
