@@ -1,0 +1,27 @@
+openapi: 3.0.3
+info:
+  title: Provider Enrollment Vertical Slice API
+  version: 1.0.0
+paths:
+  /api/v1/providers/enroll:
+    post:
+      summary: Submit Provider Enrollment Application
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - npi
+                - taxonomyCode
+              properties:
+                npi:
+                  type: string
+                  example: "1234567890"
+                taxonomyCode:
+                  type: string
+                  example: "207Q00000X"
+      responses:
+        '201':
+          description: Enrollment Application Submitted Successfully

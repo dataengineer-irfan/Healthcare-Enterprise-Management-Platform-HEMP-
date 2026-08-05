@@ -1,0 +1,40 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+entityName: "Claim"
+canonicalName: "HealthcareClaim"
+businessDefinition: "Formal bill submitted by a provider for medical services rendered."
+owner: "Claims Processing Operations"
+fhirMapping: "http://hl7.org/fhir/R4/claim.html"
+x12Mapping: "EDI 837P / EDI 837I"
+aiSynonyms:
+  - "Claim"
+  - "Bill"
+  - "Encounter"
+  - "Invoice"
+
+attributes:
+  claimId:
+    type: "string"
+    format: "uuid"
+    description: "Global Canonical Claim UUID"
+    searchable: true
+  claimNumber:
+    type: "string"
+    description: "Unique Claim Tracking Number"
+    searchable: true
+  totalBilledAmount:
+    type: "number"
+    minimum: 0.00
+    description: "Total Billed Amount"
+  claimStatus:
+    type: "string"
+    enum: ["RECEIVED", "PRICED", "ADJUDICATED", "PAID", "DENIED"]
+
+relationships:
+  provider:
+    targetEntity: "Provider"
+    type: "MANY_TO_ONE"
+    foreignKey: "providerId"
+  member:
+    targetEntity: "Member"
+    type: "MANY_TO_ONE"
+    foreignKey: "memberId"

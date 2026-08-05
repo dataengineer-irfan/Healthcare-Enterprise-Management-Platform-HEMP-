@@ -1,0 +1,43 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+entityName: "Provider"
+canonicalName: "HealthcareProvider"
+businessDefinition: "Individual healthcare practitioner or facility rendering medical services to enrollees."
+owner: "Provider Network Management"
+fhirMapping: "http://hl7.org/fhir/R4/practitioner.html"
+x12Mapping: "Loop 2010AA / Loop 2310B"
+aiSynonyms:
+  - "Doctor"
+  - "Physician"
+  - "Clinician"
+  - "Practitioner"
+  - "Hospital"
+  - "Facility"
+
+attributes:
+  providerId:
+    type: "string"
+    format: "uuid"
+    description: "Global Canonical Provider UUID"
+    searchable: true
+  npi:
+    type: "string"
+    length: 10
+    pattern: "^\\d{10}$"
+    description: "10-digit National Provider Identifier"
+    searchable: true
+  taxonomyCode:
+    type: "string"
+    length: 10
+    pattern: "^[0-9A-Z]{10}$"
+    description: "NUCC Provider Specialty Taxonomy Code"
+    searchable: true
+  credentialingStatus:
+    type: "string"
+    enum: ["DRAFT", "SUBMITTED", "IN_CREDENTIALING", "APPROVED", "REJECTED"]
+    description: "Current Credentialing State Machine Status"
+
+relationships:
+  organization:
+    targetEntity: "Organization"
+    type: "MANY_TO_ONE"
+    foreignKey: "organizationId"

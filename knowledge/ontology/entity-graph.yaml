@@ -1,0 +1,26 @@
+version: "1.0"
+domain: "Healthcare Enterprise Knowledge Graph"
+nodes:
+  - id: "Provider"
+    type: "Entity"
+    attributes: ["npi", "taxonomy_code", "credentialing_status"]
+  - id: "Organization"
+    type: "Entity"
+    attributes: ["legal_name", "tax_id", "organization_type"]
+  - id: "Member"
+    type: "Entity"
+    attributes: ["subscriber_number", "coverage_status"]
+  - id: "Claim"
+    type: "Entity"
+    attributes: ["claim_number", "total_billed_amount", "claim_status"]
+
+edges:
+  - source: "Provider"
+    target: "Organization"
+    relation: "WORKS_FOR"
+  - source: "Provider"
+    target: "Claim"
+    relation: "SUBMITS"
+  - source: "Claim"
+    target: "Member"
+    relation: "COVERS"

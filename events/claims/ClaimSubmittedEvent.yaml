@@ -1,0 +1,44 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "ClaimSubmittedEvent"
+description: "Emitted when a new 837 electronic claim is received and validated by the intake service."
+type: "object"
+required:
+  - eventId
+  - eventType
+  - correlationId
+  - timestamp
+  - payload
+properties:
+  eventId:
+    type: "string"
+    format: "uuid"
+  eventType:
+    type: "string"
+    const: "ClaimSubmittedEvent"
+  correlationId:
+    type: "string"
+  timestamp:
+    type: "string"
+    format: "date-time"
+  payload:
+    type: "object"
+    required:
+      - claimId
+      - claimNumber
+      - providerId
+      - memberId
+      - totalBilledAmount
+    properties:
+      claimId:
+        type: "string"
+        format: "uuid"
+      claimNumber:
+        type: "string"
+      providerId:
+        type: "string"
+        format: "uuid"
+      memberId:
+        type: "string"
+        format: "uuid"
+      totalBilledAmount:
+        type: "number"

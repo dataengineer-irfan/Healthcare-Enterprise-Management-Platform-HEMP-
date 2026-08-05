@@ -1,0 +1,26 @@
+@prefix hemp: <http://hemp.health/ontology#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+hemp:Provider a owl:Class ;
+    rdfs:label "Healthcare Provider" ;
+    rdfs:comment "Individual practitioner or facility rendering services." .
+
+hemp:Claim a owl:Class ;
+    rdfs:label "Healthcare Claim" ;
+    rdfs:comment "Bill submitted by provider for rendered services." .
+
+hemp:submitsClaim a owl:ObjectProperty ;
+    rdfs:domain hemp:Provider ;
+    rdfs:range hemp:Claim ;
+    rdfs:label "submits claim" .
+
+hemp:Member a owl:Class ;
+    rdfs:label "Health Plan Member" ;
+    rdfs:comment "Eligible beneficiary covered under plan." .
+
+hemp:receivesService a owl:ObjectProperty ;
+    rdfs:domain hemp:Member ;
+    rdfs:range hemp:Claim ;
+    rdfs:label "receives service for claim" .
