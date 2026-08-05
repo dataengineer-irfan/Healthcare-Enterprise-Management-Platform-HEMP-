@@ -1,8 +1,19 @@
 import React from 'react';
-import { Box, Typography, Paper, Grid, Card, CardContent, Divider, Button } from '@mui/material';
+import { Box, Typography, Paper, Grid, Button } from '@mui/material';
 import { Download as DownloadIcon, BarChart as ChartIcon } from '@mui/icons-material';
 
 export const ReportsPage: React.FC = () => {
+  const handleExportCsv = () => {
+    const csvContent = "data:text/csv;charset=utf-8,Module,Count,Billed,Paid\nProviders,20,N/A,N/A\nMembers,20,N/A,N/A\nClaims,1420,$4850000.00,$3920000.00\n";
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "hemp_executive_summary_report.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
@@ -14,7 +25,13 @@ export const ReportsPage: React.FC = () => {
             Enterprise CMS Financial, Provider Credentialing, and Member Population Health Summary
           </Typography>
         </Box>
-        <Button variant="outlined" startIcon={<DownloadIcon />}>
+        <Button
+          variant="contained"
+          startIcon={<DownloadIcon />}
+          onClick={handleExportCsv}
+          data-testid="export-csv-button"
+          sx={{ fontWeight: 600 }}
+        >
           Export Full Roster Report (CSV)
         </Button>
       </Box>

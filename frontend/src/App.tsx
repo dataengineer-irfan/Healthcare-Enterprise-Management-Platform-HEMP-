@@ -12,6 +12,9 @@ import { ClaimsPage } from './pages/ClaimsPage';
 import { ReportsPage } from './pages/ReportsPage';
 import { AdminPage } from './pages/AdminPage';
 import { AiStudioPage } from './pages/AiStudioPage';
+import { ProfilePage } from './pages/ProfilePage';
+import { AccessDeniedPage } from './pages/AccessDeniedPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode; allowedRoles?: string[] }> = ({ children, allowedRoles }) => {
   const { user, token } = useAuth();
@@ -19,7 +22,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; allowedRoles?: strin
     return <Navigate to="/login" replace />;
   }
   if (allowedRoles && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/403" replace />;
   }
   return <>{children}</>;
 };
@@ -36,6 +39,7 @@ export function App() {
             <Route path="/" element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
               <Route index element={<Navigate to="/dashboard" replace />} />
               <Route path="dashboard" element={<DashboardPage />} />
+              <Route path="profile" element={<ProfilePage />} />
               <Route path="providers" element={<ProtectedRoute allowedRoles={['Admin', 'Provider']}><ProviderPage /></ProtectedRoute>} />
               <Route path="members" element={<ProtectedRoute allowedRoles={['Admin', 'Member']}><MemberPage /></ProtectedRoute>} />
               <Route path="claims" element={<ProtectedRoute allowedRoles={['Admin']}><ClaimsPage /></ProtectedRoute>} />
@@ -43,9 +47,10 @@ export function App() {
               <Route path="reports" element={<ProtectedRoute allowedRoles={['Admin']}><ReportsPage /></ProtectedRoute>} />
               <Route path="admin" element={<ProtectedRoute allowedRoles={['Admin']}><AdminPage /></ProtectedRoute>} />
               <Route path="ai-studio" element={<ProtectedRoute allowedRoles={['Admin']}><AiStudioPage /></ProtectedRoute>} />
+              <Route path="403" element={<AccessDeniedPage />} />
             </Route>
 
-            <Route path="*" element={<Navigate to="/login" replace />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

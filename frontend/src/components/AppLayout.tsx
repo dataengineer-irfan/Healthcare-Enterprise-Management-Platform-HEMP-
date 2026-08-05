@@ -2,23 +2,25 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import {
   AppBar, Toolbar, Typography, Drawer, List, ListItemButton, ListItemIcon, ListItemText,
-  Box, IconButton, Avatar, Menu, MenuItem, Chip, Breadcrumbs, Link, Container, Divider
+  Box, IconButton, Avatar, Menu, MenuItem, Chip, Breadcrumbs, Link, TextField, InputAdornment
 } from '@mui/material';
 import {
   Dashboard as DashboardIcon, LocalHospital as ProviderIcon, People as MemberIcon,
   ReceiptLong as ClaimsIcon, Assessment as ReportsIcon, AdminPanelSettings as AdminIcon,
   Psychology as AiIcon, Logout as LogoutIcon, AccountCircle, Contacts as ContactIcon,
-  Settings as SettingsIcon, HelpOutline as HelpIcon
+  Search as SearchIcon, Person as ProfileIcon
 } from '@mui/icons-material';
 import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
 
 const DRAWER_WIDTH = 260;
 
 export const AppLayout: React.FC = () => {
-  const { user, logout } = useAuth();
+  const { user, token, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [globalQuery, setGlobalQuery] = useState('');
 
   const handleMenuOpen = (e: React.MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
@@ -27,6 +29,12 @@ export const AppLayout: React.FC = () => {
     handleMenuClose();
     logout();
     navigate('/login');
+  };
+
+  const handleGlobalSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!globalQuery.trim()) return;
+    navigate(`/providers?search=${encodeURIComponent(globalQuery)}`);
   };
 
   const navItems = [
@@ -50,23 +58,48 @@ export const AppLayout: React.FC = () => {
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: '#0F4C81' }}>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 700, letterSpacing: 0.5 }}>
+            <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 700, letterSpacing: 0.5, cursor: 'pointer' }} onClick={() => navigate('/dashboard')}>
               HEMP Enterprise Portal
             </Typography>
             <Chip label="DEMO EDITION" color="secondary" size="small" sx={{ fontWeight: 600 }} />
           </Box>
+
+          {/* Global Header Search Bar */}
+          <form onSubmit={handleGlobalSearch} style={{ flex: 0.4 }}>
+            <TextField
+              size="small"
+              fullWidth
+              placeholder="Global Search (NPI, Member ID, Claim Number)..."
+              value={globalQuery}
+              onChange={(e) => setGlobalQuery(e.target.value)}
+              inputProps={{ 'data-testid': 'global-search-input', style: { color: '#FFF' } }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon sx={{ color: 'rgba(255,255,255,0.7)' }} />
+                  </InputAdornment>
+                ),
+                sx: { backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: 1 }
+              }}
+            />
+          </form>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <Chip
               avatar={<Avatar>{user?.fullName?.[0] || 'U'}</Avatar>}
               label={`${user?.fullName} (${user?.role})`}
               variant="outlined"
-              sx={{ color: '#FFF', borderColor: 'rgba(255,255,255,0.4)' }}
+              onClick={() => navigate('/profile')}
+              sx={{ color: '#FFF', borderColor: 'rgba(255,255,255,0.4)', cursor: 'pointer' }}
             />
             <IconButton onClick={handleMenuOpen} color="inherit" data-testid="user-menu-button">
               <AccountCircle />
             </IconButton>
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+              <MenuItem onClick={() => { handleMenuClose(); navigate('/profile'); }} data-testid="profile-button">
+                <ListItemIcon><ProfileIcon fontSize="small" /></ListItemIcon>
+                User Profile
+              </MenuItem>
               <MenuItem onClick={handleLogout} data-testid="logout-button">
                 <ListItemIcon><LogoutIcon fontSize="small" /></ListItemIcon>
                 Logout
