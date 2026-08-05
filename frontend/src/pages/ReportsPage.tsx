@@ -1,0 +1,53 @@
+import React from 'react';
+import { Box, Typography, Paper, Grid, Card, CardContent, Divider, Button } from '@mui/material';
+import { Download as DownloadIcon, BarChart as ChartIcon } from '@mui/icons-material';
+
+export const ReportsPage: React.FC = () => {
+  return (
+    <Box>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+        <Box>
+          <Typography variant="h4" sx={{ fontWeight: 700, color: '#0F4C81' }}>
+            Executive Reports & OLAP Analytics
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Enterprise CMS Financial, Provider Credentialing, and Member Population Health Summary
+          </Typography>
+        </Box>
+        <Button variant="outlined" startIcon={<DownloadIcon />}>
+          Export Full Roster Report (CSV)
+        </Button>
+      </Box>
+
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          <Paper elevation={2} sx={{ p: 3, borderRadius: 2 }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+              Provider Network Specialty Breakdown
+            </Typography>
+            <Box sx={{ p: 4, bgcolor: '#F8FAFC', borderRadius: 2, textAlign: 'center' }}>
+              <ChartIcon sx={{ fontSize: 64, color: '#0F4C81', mb: 1 }} />
+              <Typography variant="body2" color="text.secondary">
+                Hospital (35%) • Primary Care (30%) • Specialty Care (20%) • Urgent Care (15%)
+              </Typography>
+            </Box>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Paper elevation={2} sx={{ p: 3, borderRadius: 2 }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+              Monthly Claims Financial Settlement
+            </Typography>
+            <Box sx={{ p: 4, bgcolor: '#F8FAFC', borderRadius: 2, textAlign: 'center' }}>
+              <ChartIcon sx={{ fontSize: 64, color: '#00A896', mb: 1 }} />
+              <Typography variant="body2" color="text.secondary">
+                Q1 Paid: $12.4M • Q2 Paid: $14.8M • Q3 Projected: $16.2M
+              </Typography>
+            </Box>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};

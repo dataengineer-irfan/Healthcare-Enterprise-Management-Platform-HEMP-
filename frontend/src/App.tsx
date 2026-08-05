@@ -1,25 +1,55 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { theme } from './theme';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { AppLayout } from './components/AppLayout';
+import { LoginPage } from './pages/LoginPage';
+import { DashboardPage } from './pages/DashboardPage';
+import { ProviderPage } from './pages/ProviderPage';
+import { MemberPage } from './pages/MemberPage';
+import { ClaimsDashboardPage } from './pages/ClaimsDashboardPage';
+import { ReportsPage } from './pages/ReportsPage';
+import { AdminPage } from './pages/AdminPage';
+import { AiStudioPage } from './pages/AiStudioPage';
+
+const ProtectedRoute: React.FC<{ children: React.ReactNode; allowedRoles?: string[] }> = ({ children, allowedRoles }) => {
+  const { user, token } = useAuth();
+  if (!token || !user) {
+    return <Navigate to="/login" replace />;
+  }
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/dashboard" replace />;
+  }
+  return <>{children}</>;
+};
 
 export function App() {
   return (
-    <div style={{ fontFamily: 'Inter, sans-serif', padding: '24px', backgroundColor: '#f8fafc', minHeight: '100vh' }}>
-      <header style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '16px', marginBottom: '24px' }}>
-        <h1 style={{ color: '#0f172a', margin: 0 }}>Healthcare Enterprise Management Platform (HEMP)</h1>
-        <p style={{ color: '#64748b', margin: '4px 0 0 0' }}>Enterprise AI Platform v3.0 / EHP-OS Operational Portal</p>
-      </header>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            
+            <Route path="/" element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
+              <Route index element={<Navigate to="/dashboard" replace />} />
+              <Route path="dashboard" element={<DashboardPage />} />
+              <Route path="providers" element={<ProtectedRoute allowedRoles={['Admin', 'Provider']}><ProviderPage /></ProtectedRoute>} />
+              <Route path="members" element={<ProtectedRoute allowedRoles={['Admin', 'Member']}><MemberPage /></ProtectedRoute>} />
+              <Route path="claims" element={<ProtectedRoute allowedRoles={['Admin']}><ClaimsDashboardPage /></ProtectedRoute>} />
+              <Route path="contacts" element={<ProtectedRoute allowedRoles={['Admin']}><DashboardPage /></ProtectedRoute>} />
+              <Route path="reports" element={<ProtectedRoute allowedRoles={['Admin']}><ReportsPage /></ProtectedRoute>} />
+              <Route path="admin" element={<ProtectedRoute allowedRoles={['Admin']}><AdminPage /></ProtectedRoute>} />
+              <Route path="ai-studio" element={<ProtectedRoute allowedRoles={['Admin']}><AiStudioPage /></ProtectedRoute>} />
+            </Route>
 
-      <main>
-        <section style={{ background: '#fff', padding: '24px', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-          <h2 style={{ color: '#1e293b' }}>Provider Directory Search</h2>
-          <div style={{ display: 'flex', gap: '12px', marginBottom: '16px' }}>
-            <input type="text" placeholder="Search NPI..." style={{ padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '4px', flex: 1 }} />
-            <button style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }}>
-              Search Directory
-            </button>
-          </div>
-        </section>
-      </main>
-    </div>
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

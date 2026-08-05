@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: hemp-demo-postgres
+    environment:
+      POSTGRES_USER: hemp_admin
+      POSTGRES_PASSWORD: hemp_secure_password
+      POSTGRES_DB: hemp_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - hemp-demo-pgdata:/var/lib/postgresql/data
+      - ../database/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hemp_admin -d hemp_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backend
+    container_name: hemp-demo-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/hemp_db
+      SPRING_DATASOURCE_USERNAME: hemp_admin
+      SPRING_DATASOURCE_PASSWORD: hemp_secure_password
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.frontend
+    container_name: hemp-demo-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  hemp-demo-pgdata:

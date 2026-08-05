@@ -1,0 +1,16 @@
+package health.hemp.demo.repository;
+
+import health.hemp.demo.entity.MemberEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface MemberRepository extends JpaRepository<MemberEntity, String> {
+    Optional<MemberEntity> findByMemberNumber(String memberNumber);
+    Page<MemberEntity> findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrMemberNumberContaining(
+            String firstName, String lastName, String memberNumber, Pageable pageable);
+}
