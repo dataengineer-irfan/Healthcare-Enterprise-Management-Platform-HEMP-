@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: hemp-postgres
+    environment:
+      POSTGRES_USER: hemp_admin
+      POSTGRES_PASSWORD: hemp_secure_password
+      POSTGRES_DB: hemp_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - hemp-pgdata:/var/lib/postgresql/data
+      - ../database/ddl:/docker-entrypoint-initdb.d
+
+  redis:
+    image: redis:7-alpine
+    container_name: hemp-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  hemp-pgdata:
