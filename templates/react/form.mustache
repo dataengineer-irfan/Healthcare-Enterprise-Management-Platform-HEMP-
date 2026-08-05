@@ -1,0 +1,30 @@
+import React from 'react';
+import { useForm } from 'react-hook-form';
+
+export interface {{componentName}}FormProps {
+  onSubmit: (data: any) => void;
+  initialValues?: Record<string, any>;
+}
+
+export const {{componentName}}Form: React.FC<{{componentName}}FormProps> = ({ onSubmit, initialValues }) => {
+  const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="metadata-form-container">
+      <h2>{{formTitle}}</h2>
+{{#fields}}
+      <div className="form-group">
+        <label htmlFor="{{fieldName}}">{{displayLabel}}{{#isRequired}} *{{/isRequired}}</label>
+        <input
+          id="{{fieldName}}"
+          type="{{inputType}}"
+          {...register('{{fieldName}}', { required: {{isRequired}} })}
+          className="form-control"
+        />
+        {errors.{{fieldName}} && <span className="error-text">{{displayLabel}} is required</span>}
+      </div>
+{{/fields}}
+      <button type="submit" className="btn btn-primary">Submit Application</button>
+    </form>
+  );
+};

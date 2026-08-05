@@ -1,0 +1,38 @@
+package {{packageName}}.domain.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.OffsetDateTime;
+import java.util.UUID;
+
+/**
+ * {{entityDescription}}
+ * Generated from Canonical Metadata Schema: {{entityId}}
+ */
+@Entity
+@Table(name = "{{tableName}}", schema = "{{schemaName}}")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class {{className}}Entity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "{{primaryKeyColumn}}", nullable = false, updatable = false)
+    private UUID id;
+
+{{#fields}}
+    @Column(name = "{{columnName}}", nullable = {{isNullable}})
+    private {{javaType}} {{fieldName}};
+
+{{/fields}}
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private OffsetDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = OffsetDateTime.now();
+    }
+}

@@ -1,0 +1,151 @@
+openapi: 3.0.3
+info:
+  title: Claims Management API
+  version: 1.0.0
+  description: OpenAPI 3.0 contract for electronic 837 claim intake, pre-adjudication, pricing, and 835 remittance generation.
+paths:
+  /api/v1/claims/intake:
+    post:
+      summary: Submit 837 Claim File or Single Claim Payload
+      operationId: submitClaim
+      security:
+        - OAuth2: ["healthcare:claims:submit"]
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Correlation-ID
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClaimIntakePayload'
+      responses:
+        '201':
+          description: Claim Submitted and Adjudicated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimIntakeResponse'
+        '400':
+          $ref: '#/components/responses/ProblemDetails'
+        '409':
+          $ref: '#/components/responses/DuplicateClaimError'
+  /api/v1/claims/{id}:
+    get:
+      summary: Retrieve Detailed Claim Record
+      operationId: getClaimById
+      security:
+        - OAuth2: ["healthcare:claims:view"]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Claim Detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimDetail'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.hemp.health/oauth/authorize
+          tokenUrl: https://auth.hemp.health/oauth/token
+          scopes:
+            healthcare:claims:view: Read claims
+            healthcare:claims:submit: Submit claims
+  schemas:
+    ClaimIntakePayload:
+      type: object
+      required:
+        - providerNpi
+        - subscriberNumber
+        - totalBilledAmount
+        - serviceStartDate
+      properties:
+        providerNpi:
+          type: string
+          example: "1234567890"
+        subscriberNumber:
+          type: string
+          example: "SUB99201A"
+        totalBilledAmount:
+          type: number
+          example: 150.00
+        serviceStartDate:
+          type: string
+          format: date
+          example: "2026-08-01"
+    ClaimIntakeResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        claimId:
+          type: string
+          format: uuid
+        claimNumber:
+          type: string
+          example: "CLM99201A"
+        claimStatus:
+          type: string
+          example: "ADJUDICATED"
+        totalPaidAmount:
+          type: number
+          example: 120.00
+    ClaimDetail:
+      type: object
+      properties:
+        claimId:
+          type: string
+          format: uuid
+        claimNumber:
+          type: string
+        claimStatus:
+          type: string
+  responses:
+    ProblemDetails:
+      description: RFC 7807 Problem Details Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              status:
+                type: integer
+              detail:
+                type: string
+              correlationId:
+                type: string
+    DuplicateClaimError:
+      description: Duplicate Claim Collision Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                example: "Duplicate Claim Detected"
+              status:
+                type: integer
+                example: 409

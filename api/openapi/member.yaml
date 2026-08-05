@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: Member Eligibility API
+  version: 1.0.0
+  description: OpenAPI 3.0 contract for beneficiary demographics and real-time EDI 270/271 eligibility inquiries.
+paths:
+  /api/v1/members/eligibility/check:
+    post:
+      summary: Real-Time EDI 270/271 Eligibility Query
+      operationId: checkEligibility
+      security:
+        - OAuth2: ["healthcare:member:view"]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - subscriberNumber
+                - dateOfBirth
+                - serviceDate
+              properties:
+                subscriberNumber:
+                  type: string
+                  example: "SUB99201A"
+                dateOfBirth:
+                  type: string
+                  format: date
+                  example: "1985-05-15"
+                serviceDate:
+                  type: string
+                  format: date
+                  example: "2026-08-05"
+      responses:
+        '200':
+          description: Eligibility Verified Successfully (EDI 271 Response)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  coverageStatus:
+                    type: string
+                    example: "ACTIVE"
+                  planName:
+                    type: string
+                    example: "Medicaid Managed Care Gold"
+                  copayAmount:
+                    type: number
+                    example: 5.00
+                  deductibleRemaining:
+                    type: number
+                    example: 250.00
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          tokenUrl: https://auth.hemp.health/oauth/token
+          scopes:
+            healthcare:member:view: Read member eligibility
