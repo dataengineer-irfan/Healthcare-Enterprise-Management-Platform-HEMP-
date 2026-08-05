@@ -1,0 +1,16 @@
+{
+  "entityId": "domain.person",
+  "entityName": "Person",
+  "displayName": "Person Primitive",
+  "domain": "framework",
+  "tableName": "person",
+  "schemaName": "domain",
+  "fields": [
+    { "fieldName": "person_id", "displayLabel": "Person ID", "dataType": "uuid", "isRequired": true, "isSearchable": true, "uiComponent": "text_input" },
+    { "fieldName": "first_name", "displayLabel": "First Name", "dataType": "string", "isRequired": true, "isSearchable": true, "uiComponent": "text_input" },
+    { "fieldName": "last_name", "displayLabel": "Last Name", "dataType": "string", "isRequired": true, "isSearchable": true, "uiComponent": "text_input" },
+    { "fieldName": "date_of_birth", "displayLabel": "Date of Birth", "dataType": "date", "isRequired": false, "isSearchable": true, "uiComponent": "date_picker" },
+    { "fieldName": "primary_email", "displayLabel": "Email Address", "dataType": "string", "isRequired": false, "isSearchable": true, "uiComponent": "email_input" },
+    { "fieldName": "status", "displayLabel": "Status", "dataType": "string", "isRequired": true, "isSearchable": true, "uiComponent": "select_dropdown" }
+  ]
+}

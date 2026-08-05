@@ -1,0 +1,15 @@
+{
+  "entityId": "domain.organization",
+  "entityName": "Organization",
+  "displayName": "Organization Primitive",
+  "domain": "framework",
+  "tableName": "organization",
+  "schemaName": "domain",
+  "fields": [
+    { "fieldName": "organization_id", "displayLabel": "Organization ID", "dataType": "uuid", "isRequired": true, "isSearchable": true, "uiComponent": "text_input" },
+    { "fieldName": "legal_name", "displayLabel": "Legal Name", "dataType": "string", "isRequired": true, "isSearchable": true, "uiComponent": "text_input" },
+    { "fieldName": "dba_name", "displayLabel": "Doing Business As (DBA)", "dataType": "string", "isRequired": false, "isSearchable": true, "uiComponent": "text_input" },
+    { "fieldName": "npi", "displayLabel": "NPI Number", "dataType": "string", "isRequired": false, "isSearchable": true, "uiComponent": "text_input" },
+    { "fieldName": "organization_type", "displayLabel": "Organization Type", "dataType": "string", "isRequired": true, "isSearchable": true, "uiComponent": "select_dropdown" }
+  ]
+}
