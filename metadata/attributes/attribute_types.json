@@ -1,0 +1,11 @@
+{
+  "attributeTypes": [
+    { "type": "string", "description": "UTF-8 text string" },
+    { "type": "number", "description": "Floating point or integer numeric value" },
+    { "type": "boolean", "description": "True / False flag" },
+    { "type": "date", "description": "ISO-8601 calendar date (YYYY-MM-DD)" },
+    { "type": "timestamp", "description": "ISO-8601 UTC timestamp" },
+    { "type": "uuid", "description": "Universal Unique Identifier v4" },
+    { "type": "jsonb", "description": "Structured JSON payload" }
+  ]
+}

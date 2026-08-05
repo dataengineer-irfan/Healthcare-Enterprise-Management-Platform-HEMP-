@@ -1,0 +1,28 @@
+{
+  "tools": [
+    {
+      "name": "search_providers",
+      "description": "Searches active healthcare providers by name, NPI, or specialty.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string" },
+          "state": { "type": "string" }
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "check_member_eligibility",
+      "description": "Verifies active member eligibility coverage for a given date of service.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "member_id": { "type": "string" },
+          "service_date": { "type": "string" }
+        },
+        "required": ["member_id", "service_date"]
+      }
+    }
+  ]
+}
