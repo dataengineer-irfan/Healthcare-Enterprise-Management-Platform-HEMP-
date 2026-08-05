@@ -1,0 +1,72 @@
+openapi: 3.0.3
+info:
+  title: Provider Management API
+  version: 1.0.0
+  description: OpenAPI 3.0 specification for Healthcare Provider Enrollment, Directory Search, and Credentialing.
+paths:
+  /api/v1/providers:
+    get:
+      summary: Search Provider Directory
+      operationId: searchProviders
+      parameters:
+        - name: npi
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: state
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Provider Search Results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProviderProfile'
+  /api/v1/providers/enroll:
+    post:
+      summary: Submit Provider Enrollment Application
+      operationId: enrollProvider
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollmentPayload'
+      responses:
+        '201':
+          description: Application Submitted Successfully
+components:
+  schemas:
+    ProviderProfile:
+      type: object
+      properties:
+        providerId:
+          type: string
+          format: uuid
+        npi:
+          type: string
+        taxonomyCode:
+          type: string
+        credentialingStatus:
+          type: string
+    EnrollmentPayload:
+      type: object
+      required:
+        - npi
+        - taxonomyCode
+      properties:
+        npi:
+          type: string
+        taxonomyCode:
+          type: string
