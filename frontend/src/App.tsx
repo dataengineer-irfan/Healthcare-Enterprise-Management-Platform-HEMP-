@@ -8,7 +8,7 @@ import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { ProviderPage } from './pages/ProviderPage';
 import { MemberPage } from './pages/MemberPage';
-import { ClaimsDashboardPage } from './pages/ClaimsDashboardPage';
+import { ClaimsPage } from './pages/ClaimsPage';
 import { ReportsPage } from './pages/ReportsPage';
 import { AdminPage } from './pages/AdminPage';
 import { AiStudioPage } from './pages/AiStudioPage';
@@ -38,7 +38,7 @@ export function App() {
               <Route path="dashboard" element={<DashboardPage />} />
               <Route path="providers" element={<ProtectedRoute allowedRoles={['Admin', 'Provider']}><ProviderPage /></ProtectedRoute>} />
               <Route path="members" element={<ProtectedRoute allowedRoles={['Admin', 'Member']}><MemberPage /></ProtectedRoute>} />
-              <Route path="claims" element={<ProtectedRoute allowedRoles={['Admin']}><ClaimsDashboardPage /></ProtectedRoute>} />
+              <Route path="claims" element={<ProtectedRoute allowedRoles={['Admin']}><ClaimsPage /></ProtectedRoute>} />
               <Route path="contacts" element={<ProtectedRoute allowedRoles={['Admin']}><DashboardPage /></ProtectedRoute>} />
               <Route path="reports" element={<ProtectedRoute allowedRoles={['Admin']}><ReportsPage /></ProtectedRoute>} />
               <Route path="admin" element={<ProtectedRoute allowedRoles={['Admin']}><AdminPage /></ProtectedRoute>} />
