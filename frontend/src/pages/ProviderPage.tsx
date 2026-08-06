@@ -87,6 +87,8 @@ export const ProviderPage: React.FC = () => {
     } catch (err: any) {
       alert('Delete failed: ' + (err.response?.data?.message || err.message));
     }
+  };
+
   const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {
