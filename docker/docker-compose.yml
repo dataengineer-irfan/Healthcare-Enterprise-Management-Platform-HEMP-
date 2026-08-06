@@ -39,7 +39,7 @@ services:
       dockerfile: docker/Dockerfile.frontend
     container_name: hemp-demo-frontend
     ports:
-      - "3009:3009"
+      - "3009:80"
     depends_on:
       - backend
 

@@ -6,6 +6,8 @@ services:
     dockerfilePath: docker/Dockerfile.backend
     healthCheckPath: /actuator/health
     envVars:
+      - key: PORT
+        value: 8090
       - key: SPRING_DATASOURCE_URL
         value: postgresql://ets_admin:HPVHBKPoe640PYItRQPYQueJdcQEEoJz@dpg-d9a6of6cjfls739bdv6g-a.oregon-postgres.render.com/ets_sandbox?sslmode=require
       - key: SPRING_DATASOURCE_USERNAME
@@ -17,3 +19,6 @@ services:
     name: hemp-demo-frontend
     env: docker
     dockerfilePath: docker/Dockerfile.frontend
+    envVars:
+      - key: VITE_API_URL
+        value: https://hemp-demo-backend.onrender.com
