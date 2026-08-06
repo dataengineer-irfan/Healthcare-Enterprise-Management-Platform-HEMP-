@@ -9,7 +9,7 @@ services:
       - key: PORT
         value: 8090
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:postgresql://ets_admin:HPVHBKPoe640PYItRQPYQueJdcQEEoJz@dpg-d9a6of6cjfls739bdv6g-a.oregon-postgres.render.com/ets_sandbox?sslmode=require
+        value: jdbc:postgresql://dpg-d9a6of6cjfls739bdv6g-a.oregon-postgres.render.com:5432/ets_sandbox?sslmode=require
       - key: SPRING_DATASOURCE_USERNAME
         value: ets_admin
       - key: SPRING_DATASOURCE_PASSWORD

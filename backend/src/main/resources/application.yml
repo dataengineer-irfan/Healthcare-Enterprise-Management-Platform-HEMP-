@@ -7,7 +7,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://ets_admin:HPVHBKPoe640PYItRQPYQueJdcQEEoJz@dpg-d9a6of6cjfls739bdv6g-a.oregon-postgres.render.com/ets_sandbox?sslmode=require}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://dpg-d9a6of6cjfls739bdv6g-a.oregon-postgres.render.com:5432/ets_sandbox?sslmode=require}
     username: ${SPRING_DATASOURCE_USERNAME:ets_admin}
     password: ${SPRING_DATASOURCE_PASSWORD:HPVHBKPoe640PYItRQPYQueJdcQEEoJz}
     driver-class-name: org.postgresql.Driver
