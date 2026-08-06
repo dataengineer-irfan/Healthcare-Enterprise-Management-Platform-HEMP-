@@ -139,7 +139,8 @@ export const ClaimsPage: React.FC = () => {
       setOpenDialog(false);
       fetchClaims();
     } catch (err: any) {
-      setErrorMsg(err.response?.data?.message || 'Submit claim failed. Please check inputs.');
+      const serverMsg = err.response?.data?.message || err.response?.data;
+      setErrorMsg(typeof serverMsg === 'string' ? serverMsg : 'Submit claim failed. Please check inputs or duplicate Claim Number.');
     }
   };
 

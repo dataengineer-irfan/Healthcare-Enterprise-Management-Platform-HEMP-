@@ -105,7 +105,8 @@ export const MemberPage: React.FC = () => {
       setOpenDialog(false);
       fetchMembers();
     } catch (err: any) {
-      setErrorMsg(err.response?.data?.message || 'Save failed. Please check member data fields.');
+      const serverMsg = err.response?.data?.message || err.response?.data;
+      setErrorMsg(typeof serverMsg === 'string' ? serverMsg : 'Save failed. Please check member data fields or duplicate Member Number.');
     }
   };
 

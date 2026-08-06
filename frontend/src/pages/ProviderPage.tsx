@@ -104,7 +104,8 @@ export const ProviderPage: React.FC = () => {
       setOpenDialog(false);
       fetchProviders();
     } catch (err: any) {
-      setErrorMsg(err.response?.data?.message || 'Save failed. Please check validation requirements.');
+      const serverMsg = err.response?.data?.message || err.response?.data;
+      setErrorMsg(typeof serverMsg === 'string' ? serverMsg : 'Save failed. Please check validation requirements or duplicate NPI.');
     }
   };
 
