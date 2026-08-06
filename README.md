@@ -4,10 +4,23 @@ The **Healthcare Enterprise Management Platform (HEMP Demo Edition)** is a fully
 
 ---
 
-## 🚀 Quick Start (Single Command)
+## 🚀 Deployment Options
 
-### Option 1: Docker Compose (Recommended)
-Run the entire platform (PostgreSQL database, Spring Boot backend, and React 19 frontend) with a single command:
+### Option 1: Render.com Cloud Deployment (Blueprint)
+
+1. Log in to your [Render Dashboard](https://dashboard.render.com/).
+2. Click **New +** -> **Blueprint**.
+3. Connect your GitHub repository: `Healthcare-Enterprise-Management-Platform-HEMP-`.
+4. Render will automatically detect `render.yaml` and provision:
+   - **`hemp-demo-backend`**: Java 21 / Spring Boot 3.x REST API connected to Render PostgreSQL (`ets_sandbox`).
+   - **`hemp-demo-frontend`**: React 19 / Nginx Web Portal.
+5. Click **Apply**.
+
+---
+
+### Option 2: Local Docker Compose
+
+Run the entire platform with a single command:
 
 ```bash
 docker-compose -f docker/docker-compose.yml up --build
@@ -15,35 +28,13 @@ docker-compose -f docker/docker-compose.yml up --build
 
 - **Frontend Portal**: `http://localhost:3009`
 - **Backend REST API**: `http://localhost:8090`
-- **PostgreSQL Database**: `localhost:5432` (`hemp_db`)
-
----
-
-### Option 2: Local Development Setup
-
-#### 1. Start Database
-```bash
-docker run --name hemp-postgres -e POSTGRES_USER=hemp_admin -e POSTGRES_PASSWORD=hemp_secure_password -e POSTGRES_DB=hemp_db -p 5432:5432 -d postgres:15-alpine
-```
-
-#### 2. Run Backend (Java 21 / Spring Boot)
-```bash
-cd backend
-mvn spring-boot:run
-```
-
-#### 3. Run Frontend (React 19 / Vite)
-```bash
-cd frontend
-npm install
-npm run dev
-```
+- **Render PostgreSQL**: Connected & pre-seeded (`ets_sandbox`)
 
 ---
 
 ## 🔐 Demo Credentials & RBAC Roles
 
-Log in at `http://localhost:3009/login` using the demo preset buttons or credentials:
+Log in using the demo preset buttons or credentials:
 
 | Username | Password | Role | Allowed Modules |
 |----------|----------|------|-----------------|

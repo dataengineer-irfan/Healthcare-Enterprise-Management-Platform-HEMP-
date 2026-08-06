@@ -1,0 +1,28 @@
+# Render Infrastructure Blueprint for HEMP Demo Edition
+services:
+  - type: web
+    name: hemp-demo-backend
+    env: docker
+    dockerfilePath: docker/Dockerfile.backend
+    region: oregon
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: PORT
+        value: 8090
+      - key: SPRING_DATASOURCE_URL
+        value: postgresql://ets_admin:HPVHBKPoe640PYItRQPYQueJdcQEEoJz@dpg-d9a6of6cjfls739bdv6g-a.oregon-postgres.render.com/ets_sandbox?sslmode=require
+      - key: SPRING_DATASOURCE_USERNAME
+        value: ets_admin
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: HPVHBKPoe640PYItRQPYQueJdcQEEoJz
+
+  - type: web
+    name: hemp-demo-frontend
+    env: docker
+    dockerfilePath: docker/Dockerfile.frontend
+    region: oregon
+    plan: free
+    envVars:
+      - key: PORT
+        value: 3009
