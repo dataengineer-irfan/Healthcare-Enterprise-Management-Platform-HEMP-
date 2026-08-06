@@ -6,7 +6,8 @@
 INSERT INTO app_user (user_id, username, password_hash, full_name, role) VALUES
 ('usr-admin-01', 'admin', '$2a$10$7Q9b9c9d9e9f9g9h9i9j9uKxLmM1N2O3P4Q5R6S7T8U9V0W1X2Y3Z', 'Enterprise System Administrator', 'Admin'),
 ('usr-prv-01', 'provider', '$2a$10$7Q9b9c9d9e9f9g9h9i9j9uKxLmM1N2O3P4Q5R6S7T8U9V0W1X2Y3Z', 'Dr. Sarah Jenkins MD', 'Provider'),
-('usr-mbr-01', 'member', '$2a$10$7Q9b9c9d9e9f9g9h9i9j9uKxLmM1N2O3P4Q5R6S7T8U9V0W1X2Y3Z', 'John Healthcare Smith', 'Member');
+('usr-mbr-01', 'member', '$2a$10$7Q9b9c9d9e9f9g9h9i9j9uKxLmM1N2O3P4Q5R6S7T8U9V0W1X2Y3Z', 'John Healthcare Smith', 'Member')
+ON CONFLICT (user_id) DO NOTHING;
 
 -- Seed 20 Providers
 INSERT INTO provider (provider_id, npi, provider_name, taxonomy_code, status, phone, email) VALUES
@@ -29,7 +30,8 @@ INSERT INTO provider (provider_id, npi, provider_name, taxonomy_code, status, ph
 ('prv-1017', '1093847517', 'Grace Womens Health Clinic', '207V00000X', 'ACTIVE', '(555) 890-5566', 'obgyn@gracehealth.org'),
 ('prv-1018', '1093847518', 'Coastal Podiatry Group', '213E00000X', 'ACTIVE', '(555) 901-6677', 'feet@coastalpodiatry.com'),
 ('prv-1019', '1093847519', 'Riverdale ENT Associates', '207Y00000X', 'ACTIVE', '(555) 012-7788', 'ent@riverdale.org'),
-('prv-1020', '1093847520', 'Gastroenterology Consultants', '207RG0100X', 'ACTIVE', '(555) 123-8899', 'gi@gastroconsult.com');
+('prv-1020', '1093847520', 'Gastroenterology Consultants', '207RG0100X', 'ACTIVE', '(555) 123-8899', 'gi@gastroconsult.com')
+ON CONFLICT (provider_id) DO NOTHING;
 
 -- Seed 20 Members
 INSERT INTO member (member_id, member_number, first_name, last_name, dob, gender, status, phone) VALUES
@@ -52,4 +54,5 @@ INSERT INTO member (member_id, member_number, first_name, last_name, dob, gender
 ('mbr-2017', 'MEM-994017', 'Matthew', 'Taylor', '2003-09-15', 'MALE', 'ELIGIBLE', '(555) 789-3210'),
 ('mbr-2018', 'MEM-994018', 'Nicole', 'Moore', '1965-11-29', 'FEMALE', 'ELIGIBLE', '(555) 890-2109'),
 ('mbr-2019', 'MEM-994019', 'Anthony', 'Jackson', '1989-04-02', 'MALE', 'ELIGIBLE', '(555) 901-1098'),
-('mbr-2020', 'MEM-994020', 'Samantha', 'Martin', '1994-06-21', 'FEMALE', 'ELIGIBLE', '(555) 012-0987');
+('mbr-2020', 'MEM-994020', 'Samantha', 'Martin', '1994-06-21', 'FEMALE', 'ELIGIBLE', '(555) 012-0987')
+ON CONFLICT (member_id) DO NOTHING;
