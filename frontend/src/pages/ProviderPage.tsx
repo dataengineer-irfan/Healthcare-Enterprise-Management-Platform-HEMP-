@@ -87,10 +87,11 @@ export const ProviderPage: React.FC = () => {
     } catch (err: any) {
       alert('Delete failed: ' + (err.response?.data?.message || err.message));
     }
-  };
+  const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {
     setErrorMsg(null);
+    setSaving(true);
     try {
       if (editMode) {
         await axios.put(`/api/v1/providers/${formData.providerId}`, formData, {
@@ -106,6 +107,8 @@ export const ProviderPage: React.FC = () => {
     } catch (err: any) {
       const serverMsg = err.response?.data?.message || err.response?.data;
       setErrorMsg(typeof serverMsg === 'string' ? serverMsg : 'Save failed. Please check validation requirements or duplicate NPI.');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -270,9 +273,15 @@ export const ProviderPage: React.FC = () => {
           </Stack>
         </DialogContent>
         <DialogActions sx={{ px: 3, py: 2 }}>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-          <Button variant="contained" onClick={handleSave} data-testid="provider-save-button">
-            Save Provider Record
+          <Button onClick={() => setOpenDialog(false)} disabled={saving}>Cancel</Button>
+          <Button
+            variant="contained"
+            onClick={handleSave}
+            disabled={saving}
+            data-testid="provider-save-button"
+            startIcon={saving ? <CircularProgress size={20} color="inherit" /> : null}
+          >
+            {saving ? 'Saving...' : 'Save Provider Record'}
           </Button>
         </DialogActions>
       </Dialog>

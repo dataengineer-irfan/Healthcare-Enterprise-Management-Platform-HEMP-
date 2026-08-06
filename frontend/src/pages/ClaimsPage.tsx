@@ -130,8 +130,11 @@ export const ClaimsPage: React.FC = () => {
     }
   };
 
+  const [saving, setSaving] = useState(false);
+
   const handleSave = async () => {
     setErrorMsg(null);
+    setSaving(true);
     try {
       await axios.post('/api/v1/claims', formData, {
         headers: { Authorization: `Bearer ${token}` }
@@ -141,6 +144,8 @@ export const ClaimsPage: React.FC = () => {
     } catch (err: any) {
       const serverMsg = err.response?.data?.message || err.response?.data;
       setErrorMsg(typeof serverMsg === 'string' ? serverMsg : 'Submit claim failed. Please check inputs or duplicate Claim Number.');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -320,9 +325,15 @@ export const ClaimsPage: React.FC = () => {
           </Stack>
         </DialogContent>
         <DialogActions sx={{ px: 3, py: 2 }}>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-          <Button variant="contained" onClick={handleSave} data-testid="claim-save-button">
-            Submit Claim Payload
+          <Button onClick={() => setOpenDialog(false)} disabled={saving}>Cancel</Button>
+          <Button
+            variant="contained"
+            onClick={handleSave}
+            disabled={saving}
+            data-testid="claim-save-button"
+            startIcon={saving ? <CircularProgress size={20} color="inherit" /> : null}
+          >
+            {saving ? 'Submitting...' : 'Submit Claim Payload'}
           </Button>
         </DialogActions>
       </Dialog>

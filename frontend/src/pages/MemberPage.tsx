@@ -90,8 +90,11 @@ export const MemberPage: React.FC = () => {
     }
   };
 
+  const [saving, setSaving] = useState(false);
+
   const handleSave = async () => {
     setErrorMsg(null);
+    setSaving(true);
     try {
       if (editMode) {
         await axios.put(`/api/v1/members/${formData.memberId}`, formData, {
@@ -107,6 +110,8 @@ export const MemberPage: React.FC = () => {
     } catch (err: any) {
       const serverMsg = err.response?.data?.message || err.response?.data;
       setErrorMsg(typeof serverMsg === 'string' ? serverMsg : 'Save failed. Please check member data fields or duplicate Member Number.');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -289,9 +294,16 @@ export const MemberPage: React.FC = () => {
           </Stack>
         </DialogContent>
         <DialogActions sx={{ px: 3, py: 2 }}>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-          <Button variant="contained" color="secondary" onClick={handleSave} data-testid="member-save-button">
-            Save Member Record
+          <Button onClick={() => setOpenDialog(false)} disabled={saving}>Cancel</Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleSave}
+            disabled={saving}
+            data-testid="member-save-button"
+            startIcon={saving ? <CircularProgress size={20} color="inherit" /> : null}
+          >
+            {saving ? 'Saving...' : 'Save Member Record'}
           </Button>
         </DialogActions>
       </Dialog>
