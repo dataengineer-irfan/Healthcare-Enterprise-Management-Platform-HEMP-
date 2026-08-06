@@ -20,5 +20,7 @@ services:
     env: docker
     dockerfilePath: docker/Dockerfile.frontend
     envVars:
+      - key: PORT
+        value: 80
       - key: VITE_API_URL
         value: https://hemp-demo-backend.onrender.com
