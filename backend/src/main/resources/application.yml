@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: hemp-demo-backend
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     url: ${SPRING_DATASOURCE_URL:postgresql://ets_admin:HPVHBKPoe640PYItRQPYQueJdcQEEoJz@dpg-d9a6of6cjfls739bdv6g-a.oregon-postgres.render.com/ets_sandbox?sslmode=require}
     username: ${SPRING_DATASOURCE_USERNAME:ets_admin}
